@@ -1,0 +1,17 @@
+logging:
+  level:
+    org.springframework.security: INFO
+management:
+  endpoint:
+    configprops:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: configprops, info, health, metrics, env
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
