@@ -11,4 +11,5 @@ rootProject.name = 'microdemo'
 include 'config'
 include 'user-service'
 include 'registry'
+include 'monitoring'
 
