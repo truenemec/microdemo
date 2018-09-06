@@ -12,4 +12,5 @@ include 'config'
 include 'user-service'
 include 'registry'
 include 'monitoring'
+include 'gateway'
 

@@ -1,0 +1,5 @@
+server:
+  port: 8900
+zuul:
+  routes:
+    user-service: /user-service/**
