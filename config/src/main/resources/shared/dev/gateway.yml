@@ -1,5 +1,6 @@
 server:
   port: 8900
 zuul:
+  ignored-services: '*'  #in other case all service will be included
   routes:
-    user-service: /user-service/**
+    user-service: /myuser-service/**

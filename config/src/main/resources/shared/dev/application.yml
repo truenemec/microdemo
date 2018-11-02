@@ -8,7 +8,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: configprops, info, health, metrics, env, hystrix.stream
+        include: configprops, info, health, metrics, env, hystrix.stream, routes, filters
 eureka:
   client:
     serviceUrl:
