@@ -17,3 +17,17 @@ services:
       depends_on:
         - config
         - registry
+  gateway:
+      image: com.microdemo/gateway:0.0.2-SNAPSHOT
+      ports:
+        - 8900:8900
+      depends_on:
+        - config
+        - registry
+  monitoring:
+      image: com.microdemo/monitoring:0.0.2-SNAPSHOT
+      ports:
+        - 8800:8800
+      depends_on:
+        - config
+        - registry
