@@ -9,3 +9,5 @@
 # Gradle
 .gradle/
 out/
+build/
+log.err
