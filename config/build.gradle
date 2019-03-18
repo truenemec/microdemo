@@ -34,7 +34,7 @@ task unpack(type: Copy) {
     into("build/dependency")
 }
 docker {
-    dockerfile file('Dockerfile')
+    dockerfile file('src/main/docker/Dockerfile')
     name "${project.group}/${bootJar.baseName}:${project.version}"
     
     copySpec.from(tasks.unpack.outputs).into("dependency")
