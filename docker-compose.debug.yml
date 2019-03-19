@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  registry:
+    ports:
+      - 5005:5005
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+  config:
+    ports:
+      - 5006:5005
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+  user-service:
+    ports:
+      - 5007:5005
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+  gateway:
+    ports:
+      - 5008:5005
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+  monitoring:
+    ports:
+      - 5009:5005
+    environment:
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
