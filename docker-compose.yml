@@ -1,19 +1,19 @@
 version: '3.3'
 services:
   registry:    
-    image: com.microdemo/registry:0.0.2-SNAPSHOT   
+    image: com.microdemo/registry:${APP_VERSION}
     ports:
       - 8761:8761
     depends_on:
       - config
     restart: unless-stopped
   config:     
-    image: com.microdemo/config:0.0.2-SNAPSHOT
+    image: com.microdemo/config:${APP_VERSION}
     ports:
       - 8888:8888
     restart: unless-stopped
   user-service:
-      image: com.microdemo/user-service:0.0.2-SNAPSHOT
+      image: com.microdemo/user-service:${APP_VERSION}
       ports:
         - 8801:8801
       depends_on:
@@ -21,7 +21,7 @@ services:
         - registry
       restart: unless-stopped
   gateway:
-      image: com.microdemo/gateway:0.0.2-SNAPSHOT
+      image: com.microdemo/gateway:${APP_VERSION}
       ports:
         - 8900:8900
       depends_on:
@@ -29,7 +29,7 @@ services:
         - registry
       restart: unless-stopped
   monitoring:
-      image: com.microdemo/monitoring:0.0.2-SNAPSHOT
+      image: com.microdemo/monitoring:${APP_VERSION}
       ports:
         - 8800:8800
       depends_on:
