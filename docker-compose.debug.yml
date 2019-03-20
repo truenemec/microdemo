@@ -2,6 +2,6 @@ version: '3.3'
 services:
   user-service:
     ports:
-      - 5007:5005
+      - ${USER_SERVICE_DEBUG_PORT}:${JAVA_DEBUG_PORT}
     environment:
-      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${JAVA_DEBUG_PORT}"
