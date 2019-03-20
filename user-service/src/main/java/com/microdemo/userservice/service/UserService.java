@@ -5,16 +5,16 @@ import com.microdemo.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
     public User get(Long id){
-        return userRepository.get(id);
+        return userRepository.findById(id).orElse(null);
     }
-    public Collection<User> getAll(){
-        return userRepository.getAll();
+
+    public Iterable<User> getAll(){
+        return userRepository.findAll();
     }
 }

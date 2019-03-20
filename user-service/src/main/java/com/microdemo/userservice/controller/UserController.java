@@ -26,15 +26,15 @@ public class UserController {
     }
     @GetMapping
     @HystrixCommand(fallbackMethod = "getDefaultAll")
-    public Collection<User> getAll(){
+    public Iterable<User> getAll(){
         return userService.getAll();
     }
 
     public User getDefault(Long id) {
         return null;
     }
-    public Collection<User> getDefaultAll() {
-        return Collections.EMPTY_LIST;
+    public Iterable<User> getDefaultAll() {
+        return Collections.emptyList();
     }
 
 }
