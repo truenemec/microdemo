@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: timofeev
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: middle_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+  - changeSet:
+        id: 2
+        author: timofeev
+        changes:
+          - insert:
+              tableName: user
+              columns:
+                - column:
+                    name: first_name
+                    value: Marcel
+                - column:
+                    name: last_name
+                    value: Overdijk
+          - insert:
+              tableName: user
+              columns:
+                - column:
+                    name: first_name
+                    value: John
+                - column:
+                    name: last_name
+                    value: Smith
+          - insert:
+              tableName: user
+              columns:
+                - column:
+                    name: first_name
+                    value: Andreas
+                - column:
+                    name: last_name
+                    value: Black

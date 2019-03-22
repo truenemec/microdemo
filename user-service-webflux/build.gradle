@@ -1,0 +1,67 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
+        }
+    }
+    dependencies {
+        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+    }
+}
+
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'java'
+    id 'eclipse'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+apply plugin: 'com.palantir.docker'
+lombok {
+    version = "${lombokVersion}"
+    sha256 = ""
+}
+
+sourceCompatibility = sourceCompatibilityVersion
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+    //compile('org.springframework.data:spring-data-r2dbc:1.0.0.BUILD-SNAPSHOT')
+    //compile('io.r2dbc:r2dbc-h2:1.0.0.BUILD-SNAPSHOT')
+    //compile('org.springframework.data:spring-data-jdbc:1.0.0.r2dbc-SNAPSHOT')
+
+    //compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-aop")
+    //compile("org.springframework.boot:spring-boot-starter-actuator")
+    //compile('org.springframework.cloud:spring-cloud-starter-config')
+    //compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    //compile("org.springframework.retry:spring-retry")
+
+
+   // compile("com.h2database:h2")
+  //  compile("org.liquibase:liquibase-core")
+ //   testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+task unpack(type: Copy) {
+    dependsOn bootJar
+    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    into("build/dependency")
+}
+docker {
+    dockerfile file('src/main/docker/Dockerfile')
+    name "${project.group}/${bootJar.baseName}:${project.version}"
+
+    copySpec.from(tasks.unpack.outputs).into("dependency")
+    buildArgs(['DEPENDENCY': "dependency"])
+}
+
+
