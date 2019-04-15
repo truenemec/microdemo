@@ -3,6 +3,7 @@ package com.microdemo.userservice.controller;
 import com.microdemo.userservice.domain.User;
 import com.microdemo.userservice.service.UserService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
     @Autowired
     private UserService userService;
@@ -25,6 +27,7 @@ public class UserController {
     @GetMapping
     @HystrixCommand(fallbackMethod = "getDefaultAll")
     public Iterable<User> getAll(){
+        log.debug("getAll");
         return userService.getAll();
     }
 

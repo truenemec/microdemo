@@ -33,6 +33,12 @@ dependencies {
 	compile("org.springframework.retry:spring-retry")
 	compile("com.h2database:h2")
 	compile("org.liquibase:liquibase-core")
+
+	compile("net.logstash.logback:logstash-logback-encoder:4.9")
+	compile("ch.qos.logback:logback-classic")
+	compile("ch.qos.logback:logback-core")
+
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
