@@ -1,12 +1,3 @@
 spring:
-  profiles:
-    active: default
   application:
     name: user-service
-  cloud:
-    config:
-      uri: http://config:8888
-      label: dev
-      fail-fast: true
-      retry:
-        max-attempts: 60
