@@ -16,11 +16,13 @@ services:
       image: ${APP_GROUP_ID}/user-service:${APP_VERSION}
       ports:
         - 8801:8801
+      volumes:
+        - user-service-logs:/app/logs
       depends_on:
         - config
         - registry
         - elasticsearch
-        - logstash
+#        - logstash
       restart: unless-stopped
   gateway:
       image: ${APP_GROUP_ID}/gateway:${APP_VERSION}
@@ -51,10 +53,20 @@ services:
       restart: unless-stopped
       depends_on:
         - elasticsearch
-  logstash:
-    image: logstash:${ELK_VERSION}
-    entrypoint: logstash -e "input { tcp { port => 5000 codec => \"json\" } } output { elasticsearch { hosts => [\"elasticsearch\"] index => \"micro-%{serviceName}\"} }"
-    ports:
-      - 5000:5000
-    depends_on:
-      - elasticsearch
+#  logstash:
+#    image: logstash:${ELK_VERSION}
+#    entrypoint: logstash -e "input { tcp { port => 5000 codec => \"json\" } } output { elasticsearch { hosts => [\"elasticsearch\"] index => \"micro-%{serviceName}\"} }"
+#    ports:
+#      - 5000:5000
+#    depends_on:
+#      - elasticsearch
+  filebeat:
+    image:  docker.elastic.co/beats/filebeat:${ELK_VERSION}
+    volumes:
+      - user-service-logs:/data/logs
+      - ./configs/filebeat/:/app/config
+    entrypoint: filebeat -e -c /app/config/filebeat.yml
+
+volumes:
+  user-service-logs:
+

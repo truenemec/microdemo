@@ -1,3 +1,5 @@
 spring:
   application:
     name: user-service
+
+logging.file: /app/logs/${spring.application.name}.log

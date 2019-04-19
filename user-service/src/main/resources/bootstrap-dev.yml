@@ -17,3 +17,12 @@ hystrix:
       execution:
         timeout:
           enabled: false
+
+logging.file: logs/${spring.application.name}.log
+logging:
+  file:
+    max-size: 1MB
+    total-size-cap: 10MB
+    name-pattern: ${logging.file}.%d{yyyy-MM-dd}.%i.gz
+  level:
+    com.microdemo: DEBUG

@@ -1,0 +1,30 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <springProperty name="SERVICE_NAME" source="spring.application.name"  defaultValue="logfile"/>
+    <springProperty name="LOG_FILE" source="logging.file"  defaultValue="${SERVICE_NAME}"/>
+    <springProperty name="LOG_FILE_TOTAL_SIZE_CAP" source="logging.file.total-size-cap"  defaultValue="100MB"/>
+    <springProperty name="LOG_FILE_FILE_NAME_PATTERN" source="logging.file.name-pattern" defaultValue="${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_FILE_NAME_PATTERN}</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${LOG_FILE_MAX_HISTORY:-0}</maxHistory>
+            <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
