@@ -6,4 +6,3 @@ spring:
       fail-fast: true
       retry:
         max-attempts: 60
-logging.file: /app/logs/${spring.application.name}.log

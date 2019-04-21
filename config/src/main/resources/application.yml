@@ -5,6 +5,10 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/shared/{label}
+          search-locations: /app/config/shared/{label}
+  application:
+    name: config
   profiles:
     active: native
+logging.file: /app/logs/${spring.application.name}.log
+

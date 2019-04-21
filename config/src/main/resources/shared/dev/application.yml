@@ -1,6 +1,7 @@
 logging:
   level:
     org.springframework.security: INFO
+    com.microdemo: DEBUG
 management:
   endpoint:
     configprops:

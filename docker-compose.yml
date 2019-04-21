@@ -6,11 +6,16 @@ services:
       - 8761:8761
     depends_on:
       - config
+    volumes:
+      - registry-logs:/app/logs
     restart: unless-stopped
   config:     
     image: ${APP_GROUP_ID}/config:${APP_VERSION}
     ports:
       - 8888:8888
+    volumes:
+      - config-logs:/app/logs
+      - ./config/src//main/resources/shared/:/app/config/shared
     restart: unless-stopped
   user-service:
       image: ${APP_GROUP_ID}/user-service:${APP_VERSION}
@@ -31,6 +36,8 @@ services:
       depends_on:
         - config
         - registry
+      volumes:
+        - gateway-logs:/app/logs
       restart: unless-stopped
   monitoring:
       image: ${APP_GROUP_ID}/monitoring:${APP_VERSION}
@@ -39,6 +46,8 @@ services:
       depends_on:
         - config
         - registry
+      volumes:
+        - monitoring-logs:/app/logs
       restart: unless-stopped
   elasticsearch:
       image: elasticsearch:${ELK_VERSION}
@@ -63,10 +72,17 @@ services:
   filebeat:
     image:  docker.elastic.co/beats/filebeat:${ELK_VERSION}
     volumes:
-      - user-service-logs:/data/logs
+      - user-service-logs:/data/logs/user-service
+      - registry-logs:/data/logs/registry
+      - config-logs:/data/logs/config
+      - gateway-logs:/data/logs/gateway
+      - monitoring-logs:/data/logs/monitoring
       - ./configs/filebeat/:/app/config
     entrypoint: filebeat -e -c /app/config/filebeat.yml
 
 volumes:
   user-service-logs:
-
+  registry-logs:
+  config-logs:
+  gateway-logs:
+  monitoring-logs:
