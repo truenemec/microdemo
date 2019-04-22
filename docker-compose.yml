@@ -29,6 +29,17 @@ services:
         - elasticsearch
 #        - logstash
       restart: unless-stopped
+  dictionary-service:
+    image: ${APP_GROUP_ID}/dictionary-service:${APP_VERSION}
+    ports:
+      - 8802:8802
+    volumes:
+      - dictionary-service-logs:/app/logs
+    depends_on:
+      - config
+      - registry
+      - elasticsearch
+    restart: unless-stopped
   gateway:
       image: ${APP_GROUP_ID}/gateway:${APP_VERSION}
       ports:
@@ -73,6 +84,7 @@ services:
     image:  docker.elastic.co/beats/filebeat:${ELK_VERSION}
     volumes:
       - user-service-logs:/data/logs/user-service
+      - dictionary-service-logs:/data/logs/dictionary-service
       - registry-logs:/data/logs/registry
       - config-logs:/data/logs/config
       - gateway-logs:/data/logs/gateway
@@ -86,3 +98,4 @@ volumes:
   config-logs:
   gateway-logs:
   monitoring-logs:
+  dictionary-service-logs:

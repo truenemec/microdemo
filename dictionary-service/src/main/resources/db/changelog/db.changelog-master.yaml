@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: timofeev
+      changes:
+        - createTable:
+            tableName: dictionary
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+  - changeSet:
+        id: 2
+        author: timofeev
+        changes:
+          - insert:
+              tableName: dictionary
+              columns:
+                - column:
+                    name: title
+                    value: Common
+                - column:
+                    name: user_id
+                    value: 1
+          - insert:
+              tableName: dictionary
+              columns:
+                - column:
+                    name: title
+                    value: shceduler
+                - column:
+                    name: user_id
+                    value: 1
+          - insert:
+              tableName: dictionary
+              columns:
+                - column:
+                    name: title
+                    value: org units
+                - column:
+                    name: user_id
+                    value: 2

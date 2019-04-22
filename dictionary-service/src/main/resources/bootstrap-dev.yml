@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  jpa:
+    show-sql: true
+eureka:
+  client:
+    enabled: false
+
+server:
+  port: 8802
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+logging.file: logs/${spring.application.name}.log
+logging:
+  file:
+    max-size: 1MB
+    total-size-cap: 10MB
+    name-pattern: ${logging.file}.%d{yyyy-MM-dd}.%i.gz
+  level:
+    com.microdemo: DEBUG
